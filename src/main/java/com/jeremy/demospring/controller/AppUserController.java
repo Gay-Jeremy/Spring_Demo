@@ -1,7 +1,9 @@
 package com.jeremy.demospring.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.jeremy.demospring.dao.AppUserDao;
 import com.jeremy.demospring.model.AppUser;
+import com.jeremy.demospring.view.AppUserView;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ public class AppUserController {
 
     // Récupère tous les utilisateurs
     @GetMapping("/user/list")
+    @JsonView(AppUserView.class)
     public List<AppUser> getAll() {
 
         return appUserDao.findAll();
@@ -33,6 +36,8 @@ public class AppUserController {
 
     // Récupère un utilisateur
     @GetMapping("/user/{id}")
+    @JsonView(AppUserView.class)
+
 
     public ResponseEntity<AppUser> get(@PathVariable int id) {
 
@@ -49,6 +54,7 @@ public class AppUserController {
     }
 
     @PostMapping("/user")
+    @JsonView(AppUserView.class)
     public  AppUser create(
             @RequestBody
             @Validated(AppUser.OnCreate.class)

@@ -1,5 +1,8 @@
 package com.jeremy.demospring.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.jeremy.demospring.view.AppUserView;
+import com.jeremy.demospring.view.ComponentView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +13,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Génération des gettes
 @Getter
@@ -31,6 +37,7 @@ public class AppUser {
     @Id
     // Indique que la valeur de l'ID est auto-incrémentée par la base de données
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(AppUserView.class)
     protected Integer Id;
 
     @Column(nullable = false, unique = true) // email ne peut pas être null et doit être unique
@@ -47,10 +54,16 @@ public class AppUser {
     // Mais si un pseudo est fournis il doit être unique, >5 caractères et <= 20 cacractères
     @Column(length = 20, unique = true) // Optimisation BDD car crée un VARCHAR 20
     @Length(min = 5, max = 20, groups = {OnUpdate.class, OnCreate.class})
+    @JsonView({AppUserView.class, ComponentView.class})
     protected String pseudo;
 
     @ManyToOne(optional = false)
+    @JsonView(AppUserView.class)
     protected Role role;
+
+    @OneToMany(mappedBy = "loaner")
+    @JsonView(AppUserView.class)
+    List<Component> components = new ArrayList<>();
 
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo.toLowerCase();

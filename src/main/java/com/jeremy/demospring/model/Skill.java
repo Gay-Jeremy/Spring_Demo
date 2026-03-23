@@ -1,7 +1,7 @@
 package com.jeremy.demospring.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.jeremy.demospring.view.AppUserView;
+import com.jeremy.demospring.view.ComponentView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 @Entity
 
-public class Role {
+public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Role {
     @Column(length = 20,nullable = false, unique = true)
     @NotBlank
     @Length(min=3,max=20)
-    @JsonView(AppUserView.class)
+    @JsonView(ComponentView.class)
     protected String name;
 
 }
