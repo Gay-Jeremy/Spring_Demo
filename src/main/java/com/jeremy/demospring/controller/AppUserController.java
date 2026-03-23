@@ -96,6 +96,7 @@ public class AppUserController {
         // On récupère les anciennes valeurs qui ne doivent pas être changées
         userToUpdate.setEmail(optionalUser.get().getEmail());
         userToUpdate.setPassword(optionalUser.get().getPassword());
+        userToUpdate.setRole((optionalUser.get().getRole()));
 
         appUserDao.save(userToUpdate);
 

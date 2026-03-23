@@ -2,6 +2,7 @@ package com.jeremy.demospring.mock;
 
 import com.jeremy.demospring.dao.AppUserDao;
 import com.jeremy.demospring.model.AppUser;
+import com.jeremy.demospring.model.Role;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -109,7 +110,14 @@ public class MockAppUserDao implements AppUserDao {
     public Optional<AppUser> findById(Integer id) {
 
         if(id == 1) {
-            return Optional.of(new AppUser(1,"a@a.com", "root", "UserA"));
+            Role roleAdmin = new Role(1,"ADMIN");
+            AppUser fauxUser = new AppUser(
+                    1,
+                    "a@a.com",
+                    "root",
+                    "UserA",
+                    roleAdmin);
+            return Optional.of(fauxUser);
         }
 
         return Optional.empty();

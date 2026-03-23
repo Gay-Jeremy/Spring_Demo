@@ -49,6 +49,9 @@ public class AppUser {
     @Length(min = 5, max = 20, groups = {OnUpdate.class, OnCreate.class})
     protected String pseudo;
 
+    @ManyToOne(optional = false)
+    protected Role role;
+
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo.toLowerCase();
     }
