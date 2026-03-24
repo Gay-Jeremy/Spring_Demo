@@ -13,14 +13,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@IdClass(Acknowledge.class)
+@IdClass(Acknowledge.Key.class)
 public class Acknowledge {
 
     @Embeddable
     public class Key implements Serializable {
         @Column(name = "user_id")
         Integer userId;
-        @Column("skill_id")
+        @Column(name = "skill_id")
         Integer skillId;
     }
 
@@ -35,13 +35,13 @@ public class Acknowledge {
     protected Integer skillId;
 
     @ManyToOne
-    @MapsId("user_id")
-    @JoinColumn("user_id")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     protected AppUser user;
 
     @ManyToOne
-    @MapsId("skill_id")
-    @JoinColumn("skill_id")
+    @MapsId("skillId")
+    @JoinColumn(name = "skill_id")
     protected Skill skill;
 
     protected int level;
